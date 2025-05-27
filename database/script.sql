@@ -1,0 +1,35 @@
+DROP DATABASE IF EXISTS app;
+CREATE DATABASE app;
+USE app;
+
+CREATE TABLE usuarios (
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL,
+	senha VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE categorias (
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE produtos (
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(255) NOT NULL,
+	descricao TEXT,
+	imagem_url TEXT,
+	preco DECIMAL(10,2) NOT NULL,
+	estoque INT NOT NULL,
+	id_categoria INT NOT NULL,
+	FOREIGN KEY (id_categoria) REFERENCES categorias(id)
+);
+
+CREATE TABLE carrinho (
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id_produto INT NOT NULL,
+	id_usuario INT NOT NULL,
+	quantidade INT NOT NULL,
+	FOREIGN KEY (id_produto) REFERENCES produtos(id),
+	FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+);
